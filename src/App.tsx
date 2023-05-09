@@ -1,24 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import { TodoList, test } from './components/List';
 
-function App() {
+const App = () => {
+  
+    const [list, setList] = useState<test[]>([]);
+    const [contents, setContents] = useState("やりたくない");
+
+  const InsertToDo = (event:any) => 
+  {
+    event.preventDefault()
+      setList((prev) => [{contents, done:false}, ...prev]);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <form onSubmit={InsertToDo}>
+            <input value={contents}/>
+            <button type='submit'>Insert</button>
+      </form>
+            <input type="checkbox" name="done" id="done" onClick={}/>
+      <TodoList tasks={list} />
     </div>
   );
 }
